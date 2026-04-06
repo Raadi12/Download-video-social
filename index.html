@@ -103,7 +103,7 @@
         downloadBtn.disabled = true;
 
        // ប្តូរត្រង់កន្លែង setTimeout មកជាកូដនេះវិញ
-    fetch(`http://127.0.0.1:8000/download?url=${url}`)
+    fetch(`https://download-video-social-production.up.railway.app/download?url=${url}`)
         .then(response => response.json())
         // ក្នុងផ្នែក .then(data => { ... }) របស់បង សូមកែដូចនេះ៖
         .then(data => {
