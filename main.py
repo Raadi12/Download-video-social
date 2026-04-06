@@ -18,10 +18,11 @@ def get_video(url: str):
         # បន្ថែមបន្តិចដើម្បីឱ្យទាញយកបានលឿន និងច្បាស់
         ydl_opts = {
             'format': 'best',
-            'http_headers': {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            'quiet': True,
+            'no_warnings': True,
+            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+            'referer': 'https://www.tiktok.com/',
             }
-        } 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
             
