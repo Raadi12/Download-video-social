@@ -1,0 +1,138 @@
+[4/6/2026 12:35 PM] HANAFY RASET: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <nav class="bg-white shadow-sm py-4">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="bg-blue-600 p-2 rounded-lg">
+                    <i class="fas fa-download text-white"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-800">Video<span class="text-blue-600">Save</span></span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-600 font-medium">
+                <a href="#" class="hover:text-blue-600">Home</a>
+                <a href="#" class="hover:text-blue-600">How to use</a>
+                <a href="#" class="hover:text-blue-600">Supported Sites</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+            Download Your Favorite Videos
+        </h1>
+        <p class="text-gray-600 text-lg mb-10">
+            Paste the video link below to start. Simple, fast, and free.
+        </p>
+
+        <div class="bg-white p-2 rounded-2xl shadow-xl flex flex-col md:flex-row items-center border border-gray-100">
+            <div class="flex-1 w-full flex items-center px-4 py-3">
+                <i class="fas fa-link text-gray-400 mr-3"></i>
+                <input type="text" 
+                       placeholder="https://www.tiktok.com/@user/video/..." 
+                       class="w-full outline-none text-gray-700 bg-transparent">
+            </div>
+            <button class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl transition-all duration-200 shadow-lg">
+                DOWNLOAD
+            </button>
+        </div>
+        <div id="preview-container" class="hidden mb-8 p-4 bg-white rounded-2xl shadow-lg max-w-sm mx-auto border border-gray-100">
+            <img id="video-thumb" src="" class="w-full h-48 object-cover rounded-xl mb-3">
+            <h3 id="video-title" class="text-sm font-bold text-gray-800 line-clamp-2 text-left"></h3>
+        </div>
+        <div class="mt-12">
+            <p class="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-6">Supported Platforms</p>
+            <div class="flex justify-center items-center space-x-8 text-3xl text-gray-400">
+                <i class="fab fa-tiktok hover:text-black transition-colors cursor-pointer"></i>
+                <i class="fab fa-youtube hover:text-red-600 transition-colors cursor-pointer"></i>
+                <i class="fab fa-instagram hover:text-pink-600 transition-colors cursor-pointer"></i>
+                <i class="fab fa-facebook hover:text-blue-600 transition-colors cursor-pointer"></i>
+            </div>
+        </div>
+    </main>
+
+    <section class="bg-white py-16 border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-row-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-blue-600 text-3xl mb-4"><i class="fas fa-bolt"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Fast Conversion</h3>
+                    <p class="text-gray-500">Convert and download videos in just a few seconds.</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-blue-600 text-3xl mb-4"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Secure & Safe</h3>
+                    <p class="text-gray-500">No malware or annoying ads. Your privacy is our priority.</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-blue-600 text-3xl mb-4"><i class="fas fa-infinity"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Unlimited Usage</h3>
+                    <p class="text-gray-500">Download as many videos as you want without limits.</p>
+                </div>
+            </div>
+[4/6/2026 12:35 PM] HANAFY RASET: </div>
+    </section>
+
+    <footer class="py-8 text-center text-gray-500 text-sm">
+        <p>© 2026 VideoSave. All rights reserved.</p>
+    </footer>
+
+</body>
+<script>
+    const downloadBtn = document.querySelector('button');
+    const inputLink = document.querySelector('input');
+
+    downloadBtn.addEventListener('click', () => {
+        const url = inputLink.value.trim();
+
+        if (url === "") {
+            alert("សូមបញ្ចូល Link វីដេអូជាមុនសិន!");
+            return;
+        }
+
+        // បង្ហាញស្ថានភាពកំពុងដំណើរការ (Loading)
+        downloadBtn.innerText = "Processing...";
+        downloadBtn.disabled = true;
+
+       // ប្តូរត្រង់កន្លែង setTimeout មកជាកូដនេះវិញ
+    fetch(`http://127.0.0.1:8000/download?url=${url}`)
+        .then(response => response.json())
+        // ក្នុងផ្នែក .then(data => { ... }) របស់បង សូមកែដូចនេះ៖
+        .then(data => {
+            if (data.download_url) {
+        // ១. បង្ហាញរូបភាព និងចំណងជើងវីដេអូ
+                const previewContainer = document.getElementById('preview-container');
+                const videoThumb = document.getElementById('video-thumb');
+                const videoTitle = document.getElementById('video-title');
+
+                videoThumb.src = data.thumbnail; // ដាក់រូបភាព
+                videoTitle.innerText = data.title; // ដាក់ចំណងជើង
+                previewContainer.classList.remove('hidden'); // បង្ហាញផ្ទាំង Preview
+
+        // ២. បង្ខំឱ្យ Download ចូល Laptop
+                const a = document.createElement('a');
+                a.href = data.download_url;
+                a.download = 'video.mp4';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                alert("រកមិនឃើញវីដេអូទេ!");
+            }
+        })
+        .catch(err => alert("មានបញ្ហាក្នុងការភ្ជាប់ទៅ Server!"))
+        .finally(() => {
+            downloadBtn.innerText = "DOWNLOAD";
+            downloadBtn.disabled = false;
+    });
+    });
+</script>
+</html>
