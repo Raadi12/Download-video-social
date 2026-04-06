@@ -33,4 +33,5 @@ def get_video(url: str):
                 "download_url": info.get('url')
             }
     except Exception as e:
-        return {"error": str(e)}
+        print(f"Error details: {str(e)}") # វានឹងបង្ហាញក្នុង Render Logs
+        return {"error": "Server ជាប់រវល់ ឬ Link មិនត្រឹមត្រូវ។ សូមព្យាយាមម្តងទៀត!"}
