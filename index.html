@@ -103,7 +103,7 @@
         downloadBtn.disabled = true;
 
        // ប្តូរត្រង់កន្លែង setTimeout មកជាកូដនេះវិញ
-    fetch(`https://download-video-social-yx90.onrender.com/download?url=${url}`)
+    fetch(`https://download-video-social-yx90.onrender.com/?url=${url}`)
         .then(response => response.json())
         // ក្នុងផ្នែក .then(data => { ... }) របស់បង សូមកែដូចនេះ៖
         .then(data => {
