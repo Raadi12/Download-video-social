@@ -32,7 +32,7 @@ def get_video(url: str):
     except Exception as e:
         return {"error": str(e)}
 
-if name == "__main__":
+if _name_ == "__main__":
     import uvicorn
     # Railway ត្រូវការឱ្យយើងប្រើ Port ដែលវាផ្ដល់ឱ្យតាមរយៈ Environment Variable
     port = int(os.environ.get("PORT", 8000))
